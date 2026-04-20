@@ -310,11 +310,6 @@ typescript@~6.0.2:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-6.0.3.tgz#90251dc007916e972786cb94d74d15b185577d21"
   integrity sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==
 
-vite-plugin-cogs-sdk@^2.11.2:
-  version "2.11.2"
-  resolved "https://registry.yarnpkg.com/vite-plugin-cogs-sdk/-/vite-plugin-cogs-sdk-2.11.2.tgz#e32c665e269ff71a083f4ac56e07e6beb5914751"
-  integrity sha512-qjKOm38ip4Bl0pQXNUN2gVtyxMCdGESG8KwKaEQeiyqdohxNcVTYPQDZKJ3vxAzzkVz6N7d/ldj/2XVxOf1qCg==
-
 vite@^8.0.9:
   version "8.0.9"
   resolved "https://registry.yarnpkg.com/vite/-/vite-8.0.9.tgz#69602329ebcea1f281124735a1113be51c45d1da"

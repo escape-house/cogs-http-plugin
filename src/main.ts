@@ -7,14 +7,7 @@ const cogsConnection = new CogsConnection(manifest);
 cogsConnection.addEventListener('event', ({ name, value }) => {
     console.log("Name:", name)
     console.log("Value:", value);
-    
-    handleGet(value)
-    cogsConnection.sendEvent("get-respone", "asd");
-
+    if (name === "GET") {
+        cogsConnection.sendEvent("get-response", "my Test Response");
+    }
 });
-
-function handleGet(url: string): string
-{
-    console.log(url);
-    return ""
-}

@@ -11,7 +11,7 @@ module.exports =
         events: {
             toCogs: [
                 {
-                    name: 'get-respone',
+                    name: 'get-response',
                     value: {type: 'string'},
                 },
             ],
