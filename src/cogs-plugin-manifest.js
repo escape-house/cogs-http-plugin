@@ -6,20 +6,42 @@ module.exports =
     ({
         name: 'HTTP Client',
         icon: 'bullseye-pointer',
-        description: 'http client with responses',
+        description: 'HTTP client with responses',
         version: '1',
         events: {
             toCogs: [
                 {
-                    name: 'get-response',
-                    value: {type: 'string'},
-                },
+
+                    name: 'response',
+                    value: {
+                        type: 'string'
+                    }
+                }
             ],
             fromCogs: [
                 {
-                    name: 'GET',
-                    value: {type: "string"}
+                    name: 'GetRequest',
+                    value: { type: "string" }
                 },
             ],
         },
+        state: [
+            {
+                name: 'response',
+                value: {
+                    type: 'string',
+                    default: ''
+                },
+                writableFromClient: true
+            },
+            {
+                name: 'responseCode',
+                value: {
+                    type: 'number',
+                    default: -1
+                },
+                writableFromClient: true
+            }
+
+        ]
     });
