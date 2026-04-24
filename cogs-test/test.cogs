@@ -1,0 +1,609 @@
+{
+  "assets": {
+    "config": []
+  },
+  "channels": [],
+  "clients": [],
+  "project": {
+    "formatVersion": "5.9",
+    "locked": false,
+    "disableImmutableExpressionContext": false
+  },
+  "resetChecks": [],
+  "rfid": {
+    "items": [],
+    "tags": []
+  },
+  "scenes": {
+    "system": {
+      "preShow": {
+        "variables": [],
+        "values": [],
+        "behaviors": []
+      },
+      "show": {
+        "notes": "test\n----\n\nWrite a description of your project here.\ne.g. A reasonably improbable quest about a cosmic briefcase\n\n\nTODO:\n✅ Create new project\n⬜️ Make some scenes, channels, behaviours and more\n⬜️ Test and tweak the show\n⬜️ Install and connect hardware\n⬜️ Patch channels\n⬜️ Launch!",
+        "variables": [
+          [
+            "getRequestUri",
+            {
+              "type": "string",
+              "default": "https://meowfacts.herokuapp.com/"
+            }
+          ],
+          [
+            "testGetRequestResponse",
+            {
+              "type": "string",
+              "default": ""
+            }
+          ],
+          [
+            "testRequestStatusCode",
+            {
+              "type": "number",
+              "integer": true,
+              "default": -1
+            }
+          ],
+          [
+            "pokemonId",
+            {
+              "type": "number",
+              "min": 1,
+              "integer": true,
+              "default": 25
+            }
+          ],
+          [
+            "pokemon",
+            {
+              "type": "string",
+              "default": ""
+            }
+          ],
+          [
+            "pokemonStatusCode",
+            {
+              "type": "number",
+              "integer": true,
+              "default": 0
+            }
+          ]
+        ],
+        "values": [],
+        "behaviors": [
+          {
+            "type": "manual",
+            "parameters": [
+              [
+                "uri",
+                {
+                  "type": "string",
+                  "value": "",
+                  "default": "",
+                  "required": true
+                }
+              ]
+            ],
+            "do": [
+              {
+                "type": "send_plugin_event",
+                "pluginId": "dev.stenz.http-plugin",
+                "eventName": "GetRequest",
+                "value": {
+                  "template": {
+                    "type": "value",
+                    "source": {
+                      "type": "behavior_parameter",
+                      "behavior": {
+                        "scenePosition": {
+                          "type": "system",
+                          "key": "show"
+                        },
+                        "behaviorName": "GET Reqest"
+                      },
+                      "parameterName": "uri"
+                    }
+                  }
+                }
+              }
+            ],
+            "name": "GET Reqest"
+          },
+          {
+            "do": [
+              {
+                "type": "console_log_message",
+                "message": "GET successful",
+                "icon": "stream"
+              },
+              {
+                "type": "update_values",
+                "updates": [
+                  {
+                    "type": "variable",
+                    "variableScope": "show",
+                    "variableName": "testGetRequestResponse",
+                    "value": {
+                      "expression": "plugins[\"dev.stenz.http-plugin\"].state.response.value"
+                    }
+                  },
+                  {
+                    "type": "variable",
+                    "variableScope": "show",
+                    "variableName": "testRequestStatusCode",
+                    "value": {
+                      "expression": "plugins[\"dev.stenz.http-plugin\"].state.responseCode.value"
+                    }
+                  }
+                ]
+              }
+            ],
+            "type": "when",
+            "when": {
+              "expression": "plugins[\"dev.stenz.http-plugin\"].event.response?.value === show.variables.getRequestUri.value"
+            },
+            "name": "Test HTTP GET: Response"
+          },
+          {
+            "do": [
+              {
+                "type": "console_log_message",
+                "message": "Pokemon Fetched",
+                "icon": "stream"
+              },
+              {
+                "type": "update_values",
+                "updates": [
+                  {
+                    "type": "variable",
+                    "variableScope": "show",
+                    "variableName": "pokemon",
+                    "value": {
+                      "expression": "plugins[\"dev.stenz.http-plugin\"].state.response.value"
+                    }
+                  },
+                  {
+                    "type": "variable",
+                    "variableScope": "show",
+                    "variableName": "pokemonStatusCode",
+                    "value": {
+                      "expression": "plugins[\"dev.stenz.http-plugin\"].state.responseCode.value"
+                    }
+                  }
+                ]
+              }
+            ],
+            "type": "when",
+            "when": {
+              "expression": "plugins[\"dev.stenz.http-plugin\"].event.response?.value === \"https://pokeapi.co/api/v2/pokemon/\" + show.variables.pokemonId.value"
+            },
+            "name": "Test HTTP GET: Pokemon Response"
+          },
+          {
+            "do": [
+              {
+                "type": "console_log_message",
+                "message": "HTTP Client: Response Changed",
+                "icon": "stream"
+              }
+            ],
+            "type": "value_changed",
+            "value": {
+              "template": {
+                "type": "value",
+                "source": {
+                  "type": "plugin_state",
+                  "pluginId": "dev.stenz.http-plugin",
+                  "stateName": "response"
+                }
+              }
+            },
+            "name": "HTTP Client Response"
+          },
+          {
+            "do": [
+              {
+                "type": "console_log_message",
+                "message": "HTTP Client: Status Code changed",
+                "icon": "stream"
+              }
+            ],
+            "type": "value_changed",
+            "value": {
+              "template": {
+                "type": "value",
+                "source": {
+                  "type": "plugin_state",
+                  "pluginId": "dev.stenz.http-plugin",
+                  "stateName": "responseCode"
+                }
+              }
+            },
+            "name": "HTTP Client Status Code"
+          }
+        ],
+        "dashboard": [
+          {
+            "label": "GET Request",
+            "rows": [
+              {
+                "label": "Url",
+                "alignment": "left",
+                "widgets": [
+                  {
+                    "type": "value",
+                    "colors": [],
+                    "source": {
+                      "type": "variable",
+                      "variableScope": "show",
+                      "variableName": "getRequestUri"
+                    },
+                    "writable": true
+                  }
+                ]
+              },
+              {
+                "label": "",
+                "widgets": [
+                  {
+                    "type": "button",
+                    "colors": [],
+                    "label": "Send Request",
+                    "actions": [
+                      {
+                        "type": "trigger_behavior",
+                        "scene": {
+                          "type": "system",
+                          "key": "show"
+                        },
+                        "name": "GET Reqest",
+                        "parameters": {
+                          "uri": {
+                            "template": {
+                              "type": "value",
+                              "source": {
+                                "type": "variable",
+                                "variableScope": "show",
+                                "variableName": "getRequestUri"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "icon": "forward",
+                    "enabled": {
+                      "expression": "show.variables.getRequestUri.value !== \"\" && show.in_progress"
+                    }
+                  }
+                ],
+                "alignment": "right"
+              },
+              {
+                "label": "Respone",
+                "alignment": "center",
+                "widgets": [
+                  {
+                    "type": "value",
+                    "colors": [],
+                    "source": {
+                      "type": "variable",
+                      "variableScope": "show",
+                      "variableName": "testGetRequestResponse"
+                    },
+                    "writable": false
+                  }
+                ]
+              },
+              {
+                "label": "Response Code",
+                "widgets": [
+                  {
+                    "type": "value",
+                    "colors": [
+                      {
+                        "color": "green",
+                        "matchValue": 200
+                      },
+                      {
+                        "color": "red",
+                        "matchValue": 500
+                      }
+                    ],
+                    "source": {
+                      "type": "variable",
+                      "variableScope": "show",
+                      "variableName": "testRequestStatusCode"
+                    },
+                    "writable": false,
+                    "defaultColor": "blue"
+                  }
+                ],
+                "alignment": "center"
+              }
+            ]
+          },
+          {
+            "label": "GET Request Pokemon",
+            "rows": [
+              {
+                "label": "This will send a Request to pokeapi.co , parse the return value and display the pokemon Name",
+                "widgets": [],
+                "alignment": "left"
+              },
+              {
+                "label": "",
+                "widgets": [],
+                "alignment": "left"
+              },
+              {
+                "label": "Pokedex Entry number",
+                "alignment": "left",
+                "widgets": [
+                  {
+                    "type": "value",
+                    "colors": [],
+                    "source": {
+                      "type": "variable",
+                      "variableScope": "show",
+                      "variableName": "pokemonId"
+                    },
+                    "writable": true
+                  }
+                ]
+              },
+              {
+                "label": "",
+                "widgets": [
+                  {
+                    "type": "button",
+                    "colors": [],
+                    "label": "Ask Pokedex",
+                    "actions": [
+                      {
+                        "type": "trigger_behavior",
+                        "scene": {
+                          "type": "system",
+                          "key": "show"
+                        },
+                        "name": "GET Reqest",
+                        "parameters": {
+                          "uri": {
+                            "expression": "\"https://pokeapi.co/api/v2/pokemon/\" + show.variables.pokemonId.value"
+                          }
+                        }
+                      }
+                    ],
+                    "icon": "forward",
+                    "enabled": {
+                      "expression": "show.variables.pokemonId.value.toString() !== \"\" && show.in_progress"
+                    }
+                  }
+                ],
+                "alignment": "right"
+              },
+              {
+                "label": "Pokemon",
+                "alignment": "center",
+                "widgets": [
+                  {
+                    "type": "custom_value",
+                    "colors": [],
+                    "displayType": "string",
+                    "value": {
+                      "expression": "JSON.parse(show.variables.pokemon.value).name"
+                    }
+                  }
+                ]
+              },
+              {
+                "label": "Types",
+                "widgets": [],
+                "alignment": "center"
+              },
+              {
+                "label": "",
+                "widgets": [
+                  {
+                    "type": "custom_value",
+                    "colors": [
+                      {
+                        "color": "pink",
+                        "matchValue": {
+                          "expression": "this.value === \"fairy\" || this.value == \"psychic\""
+                        }
+                      },
+                      {
+                        "color": "brown",
+                        "matchValue": {
+                          "expression": "this.value === \"ground\" || this.value === \"rock\""
+                        }
+                      },
+                      {
+                        "color": "orange",
+                        "matchValue": {
+                          "expression": "this.value === \"fighting\""
+                        }
+                      },
+                      {
+                        "color": "yellow",
+                        "matchValue": {
+                          "expression": "this.value === \"electric\""
+                        }
+                      },
+                      {
+                        "color": "blue",
+                        "matchValue": {
+                          "expression": "this.value === \"water\" || this.value === \"ice\""
+                        }
+                      },
+                      {
+                        "color": "white",
+                        "matchValue": {
+                          "expression": "this.value === \"flying\""
+                        }
+                      },
+                      {
+                        "color": "red",
+                        "matchValue": {
+                          "expression": "this.value === \"fire\""
+                        }
+                      },
+                      {
+                        "color": "green",
+                        "matchValue": {
+                          "expression": "this.value === \"grass\" || this.value === \"bug\""
+                        }
+                      },
+                      {
+                        "color": "purple",
+                        "matchValue": {
+                          "expression": "this.value === \"poison\" || this.value === \"ghost\""
+                        }
+                      }
+                    ],
+                    "displayType": "string",
+                    "value": {
+                      "expression": "JSON.parse(show.variables.pokemon.value).types[0]?.type?.name ?? \"No Type 1\""
+                    }
+                  },
+                  {
+                    "type": "custom_value",
+                    "colors": [
+                      {
+                        "color": "pink",
+                        "matchValue": {
+                          "expression": "this.value === \"fairy\" || this.value == \"psychic\""
+                        }
+                      },
+                      {
+                        "color": "brown",
+                        "matchValue": {
+                          "expression": "this.value === \"ground\" || this.value === \"rock\""
+                        }
+                      },
+                      {
+                        "color": "orange",
+                        "matchValue": {
+                          "expression": "this.value === \"fighting\""
+                        }
+                      },
+                      {
+                        "color": "yellow",
+                        "matchValue": {
+                          "expression": "this.value === \"electric\""
+                        }
+                      },
+                      {
+                        "color": "blue",
+                        "matchValue": {
+                          "expression": "this.value === \"water\" || this.value === \"ice\""
+                        }
+                      },
+                      {
+                        "color": "white",
+                        "matchValue": {
+                          "expression": "this.value === \"flying\""
+                        }
+                      },
+                      {
+                        "color": "red",
+                        "matchValue": {
+                          "expression": "this.value === \"fire\""
+                        }
+                      },
+                      {
+                        "color": "green",
+                        "matchValue": {
+                          "expression": "this.value === \"grass\" || this.value === \"bug\""
+                        }
+                      },
+                      {
+                        "color": "purple",
+                        "matchValue": {
+                          "expression": "this.value === \"poison\" || this.value === \"ghost\""
+                        }
+                      }
+                    ],
+                    "displayType": "string",
+                    "value": {
+                      "expression": "JSON.parse(show.variables.pokemon.value).types[1]?.type?.name ?? \"No Type 2\""
+                    }
+                  }
+                ],
+                "alignment": "center"
+              },
+              {
+                "label": "Response Code",
+                "widgets": [
+                  {
+                    "type": "value",
+                    "colors": [
+                      {
+                        "color": "green",
+                        "matchValue": 200
+                      },
+                      {
+                        "color": "red",
+                        "matchValue": 500
+                      }
+                    ],
+                    "source": {
+                      "type": "variable",
+                      "variableScope": "show",
+                      "variableName": "pokemonStatusCode"
+                    },
+                    "writable": false,
+                    "defaultColor": "blue"
+                  }
+                ],
+                "alignment": "center"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "user": [
+      [
+        "Scene",
+        {
+          "startTrigger": {
+            "type": "when",
+            "when": {
+              "template": {
+                "type": "show_started"
+              }
+            }
+          },
+          "hidden": false,
+          "optional": false,
+          "restartable": false,
+          "variables": [],
+          "values": [],
+          "behaviors": []
+        }
+      ]
+    ]
+  },
+  "show": {
+    "name": "test",
+    "showTimeElapsed": true,
+    "sceneDashboardsRows": 1,
+    "runViewWhenShowStarts": ""
+  },
+  "plugins": {
+    "dev.stenz.http-plugin": {
+      "version": "1",
+      "enabled": true,
+      "config": {},
+      "defaultState": {
+        "response": "",
+        "response-code": -1
+      },
+      "stateExpressions": {}
+    }
+  }
+}
