@@ -22,7 +22,7 @@
         "behaviors": []
       },
       "show": {
-        "notes": "test\n----\n\nWrite a description of your project here.\ne.g. A reasonably improbable quest about a cosmic briefcase\n\n\nTODO:\n✅ Create new project\n⬜️ Make some scenes, channels, behaviours and more\n⬜️ Test and tweak the show\n⬜️ Install and connect hardware\n⬜️ Patch channels\n⬜️ Launch!",
+        "notes": "Start and go to Run to see Demo",
         "variables": [],
         "values": [],
         "behaviors": [
@@ -54,7 +54,7 @@
                 "updates": [
                   {
                     "type": "plugin_state",
-                    "pluginId": "dev.stenz.http-plugin",
+                    "pluginId": "dev.stenz.http",
                     "stateName": "requestHeaders",
                     "value": {
                       "template": {
@@ -77,7 +77,7 @@
               },
               {
                 "type": "send_plugin_event",
-                "pluginId": "dev.stenz.http-plugin",
+                "pluginId": "dev.stenz.http",
                 "eventName": "GetRequest",
                 "value": {
                   "template": {
@@ -136,7 +136,7 @@
                 "updates": [
                   {
                     "type": "plugin_state",
-                    "pluginId": "dev.stenz.http-plugin",
+                    "pluginId": "dev.stenz.http",
                     "stateName": "requestBody",
                     "value": {
                       "template": {
@@ -157,7 +157,7 @@
                   },
                   {
                     "type": "plugin_state",
-                    "pluginId": "dev.stenz.http-plugin",
+                    "pluginId": "dev.stenz.http",
                     "stateName": "requestHeaders",
                     "value": {
                       "template": {
@@ -180,7 +180,7 @@
               },
               {
                 "type": "send_plugin_event",
-                "pluginId": "dev.stenz.http-plugin",
+                "pluginId": "dev.stenz.http",
                 "eventName": "PostRequest",
                 "value": {
                   "template": {
@@ -216,7 +216,7 @@
                 "type": "value",
                 "source": {
                   "type": "plugin_state",
-                  "pluginId": "dev.stenz.http-plugin",
+                  "pluginId": "dev.stenz.http",
                   "stateName": "response"
                 }
               }
@@ -237,7 +237,7 @@
                 "type": "value",
                 "source": {
                   "type": "plugin_state",
-                  "pluginId": "dev.stenz.http-plugin",
+                  "pluginId": "dev.stenz.http",
                   "stateName": "responseCode"
                 }
               }
@@ -716,7 +716,7 @@
                           "type": "value",
                           "source": {
                             "type": "plugin_state",
-                            "pluginId": "dev.stenz.http-plugin",
+                            "pluginId": "dev.stenz.http",
                             "stateName": "response"
                           }
                         }
@@ -727,7 +727,7 @@
                       "variableScope": "scene",
                       "variableName": "testRequestStatusCode",
                       "value": {
-                        "expression": "plugins[\"dev.stenz.http-plugin\"].state.responseCode.value"
+                        "expression": "plugins[\"dev.stenz.http\"].state.responseCode.value"
                       }
                     }
                   ]
@@ -735,7 +735,7 @@
               ],
               "type": "when",
               "when": {
-                "expression": "plugins[\"dev.stenz.http-plugin\"].event.response?.value === scenes.GET.variables.getRequestUri.value"
+                "expression": "plugins[\"dev.stenz.http\"].event.response?.value === scenes.GET.variables.getRequestUri.value"
               },
               "name": "Test HTTP GET: Response"
             },
@@ -753,7 +753,7 @@
                           "type": "value",
                           "source": {
                             "type": "plugin_state",
-                            "pluginId": "dev.stenz.http-plugin",
+                            "pluginId": "dev.stenz.http",
                             "stateName": "response"
                           }
                         }
@@ -764,7 +764,7 @@
                       "variableScope": "scene",
                       "variableName": "pokemonStatusCode",
                       "value": {
-                        "expression": "plugins[\"dev.stenz.http-plugin\"].state.responseCode.value"
+                        "expression": "plugins[\"dev.stenz.http\"].state.responseCode.value"
                       }
                     }
                   ]
@@ -772,7 +772,7 @@
               ],
               "type": "when",
               "when": {
-                "expression": "plugins[\"dev.stenz.http-plugin\"].event.response?.value === \"https://pokeapi.co/api/v2/pokemon/\" + scenes.GET.variables.pokemonId.value"
+                "expression": "plugins[\"dev.stenz.http\"].event.response?.value === \"https://pokeapi.co/api/v2/pokemon/\" + scenes.GET.variables.pokemonId.value"
               },
               "name": "Test HTTP GET: Pokemon Response"
             },
@@ -786,7 +786,7 @@
                 {
                   "type": "console_log_message",
                   "message": {
-                    "expression": "JSON.parse(\nplugins[\"dev.stenz.http-plugin\"].state.response.value\n  ).name"
+                    "expression": "JSON.parse(\nplugins[\"dev.stenz.http\"].state.response.value\n  ).name"
                   },
                   "icon": "stream"
                 }
@@ -795,7 +795,7 @@
               "when": {
                 "template": {
                   "type": "plugin_event",
-                  "pluginId": "dev.stenz.http-plugin",
+                  "pluginId": "dev.stenz.http",
                   "event": {
                     "key": "response",
                     "value": "https://pokeapi.co/api/v2/pokemon/1"
@@ -814,7 +814,7 @@
                 {
                   "type": "console_log_message",
                   "message": {
-                    "expression": "JSON.parse(\nplugins[\"dev.stenz.http-plugin\"].state.response.value\n  ).name"
+                    "expression": "JSON.parse(\nplugins[\"dev.stenz.http\"].state.response.value\n  ).name"
                   },
                   "icon": "stream"
                 }
@@ -823,7 +823,7 @@
               "when": {
                 "template": {
                   "type": "plugin_event",
-                  "pluginId": "dev.stenz.http-plugin",
+                  "pluginId": "dev.stenz.http",
                   "event": {
                     "key": "response",
                     "value": "https://pokeapi.co/api/v2/pokemon/2"
@@ -990,7 +990,7 @@
                           "type": "value",
                           "source": {
                             "type": "plugin_state",
-                            "pluginId": "dev.stenz.http-plugin",
+                            "pluginId": "dev.stenz.http",
                             "stateName": "response"
                           }
                         }
@@ -1001,7 +1001,7 @@
                       "variableScope": "scene",
                       "variableName": "TestPostResponseStatusCode",
                       "value": {
-                        "expression": "plugins[\"dev.stenz.http-plugin\"].state.responseCode.value"
+                        "expression": "plugins[\"dev.stenz.http\"].state.responseCode.value"
                       }
                     }
                   ]
@@ -1011,7 +1011,7 @@
               "when": {
                 "template": {
                   "type": "plugin_event",
-                  "pluginId": "dev.stenz.http-plugin",
+                  "pluginId": "dev.stenz.http",
                   "event": {
                     "key": "response",
                     "value": "https://dummyjson.com/posts/add"
@@ -1032,13 +1032,13 @@
     "runViewWhenShowStarts": ""
   },
   "plugins": {
-    "dev.stenz.http-plugin": {
+    "dev.stenz.http": {
       "version": "1",
       "enabled": true,
       "config": {},
       "defaultState": {
         "response": "",
-        "response-code": -1,
+        "responseCode": -1,
         "requestBody": "{}",
         "requestHeaders": "{}"
       },
