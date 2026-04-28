@@ -4,10 +4,17 @@ This is an HTTP Client plugin for [COGS](https://cogs.show/) with configurable r
 
 A Demonstration of how the plugin can be implemented in COGS is also in the `cogs-test` directory.
 
-## Install
-TODO
+## How to Use
+1. Download the latest release
+2. [Add the plugin](https://docs.cogs.show/plugins/how-to-install/) to your project
+3. To make a request choose the HTTP Action: GetRequest, Post, Put or Delete.
+![](./docs/request.png)
+4. Set Header and Body if required, then make the request to the uri.
+![](./docs/postRequestExample.png)
+5. To listen to the response event, add a `HTTP Client: response` behavior and put the request uri as the value to listen to a specific request.
+![](./docs/response.png)
 
-## How to use
+## Events and States
 
 ### Response Events
 The response event will trigger after a GET, POST, PUT or DELETE request has been finished. You can catch the response in COGS with the uri that was passed to the request.
