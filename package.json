@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && cp -r ./build/dev.stenz.http-plugin ./cogs-test/plugins/"
+    "build": "tsc && vite build && cp -r ./build/dev.stenz.http ./cogs-test/plugins/dev.stenz.http-plugin"
   },
   "devDependencies": {
     "typescript": "~6.0.2",

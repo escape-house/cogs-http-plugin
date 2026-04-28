@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   base: "./",
   build: {
-    outDir: "./build/dev.stenz.http-plugin",
+    outDir: "./build/dev.stenz.http",
     emptyOutDir: true,
   },
 });
