@@ -1026,7 +1026,7 @@
     ]
   },
   "show": {
-    "name": "test",
+    "name": "HTTP Demo",
     "showTimeElapsed": true,
     "sceneDashboardsRows": 1,
     "runViewWhenShowStarts": ""
