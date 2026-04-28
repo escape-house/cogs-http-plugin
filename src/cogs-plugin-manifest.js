@@ -11,7 +11,6 @@ module.exports =
         events: {
             toCogs: [
                 {
-
                     name: 'response',
                     value: {
                         type: 'string'
@@ -21,6 +20,18 @@ module.exports =
             fromCogs: [
                 {
                     name: 'GetRequest',
+                    value: { type: "string" }
+                },
+                {
+                    name: 'PostRequest',
+                    value: { type: "string" }
+                },
+                {
+                    name: 'PutRequest',
+                    value: { type: "string" }
+                },
+                {
+                    name: 'DeleteRequest',
                     value: { type: "string" }
                 },
             ],
@@ -41,7 +52,23 @@ module.exports =
                     default: -1
                 },
                 writableFromClient: true
-            }
+            },
+            {
+                name: 'requestBody',
+                value: {
+                    type: 'string',
+                    default: '{}'
+                },
+                writableFromCogs: true
+            },
+            {
+                name: 'requestHeaders',
+                value: {
+                    type: 'string',
+                    default: '{}'
+                },
+                writableFromCogs: true
+            },
 
         ]
     });
